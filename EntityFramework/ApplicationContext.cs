@@ -1,5 +1,6 @@
 ﻿using EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace EntityFramework
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; } = null!;
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
-                : base(options)
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Database.EnsureCreated();
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
         }
     }
+
 }
+

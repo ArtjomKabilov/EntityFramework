@@ -13,6 +13,7 @@ namespace EntityFramework
         public string? Surname { get; set; }
         public string? LivePlace { get; set; }
         public string? email { get; set; }   
+        public string? Position { get; set; }
         public int Age { get; set; }
     }
 
