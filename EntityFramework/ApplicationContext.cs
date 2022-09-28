@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 
 namespace EntityFramework
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : DbContext// определяет контекст данных, используемый для взаимодействия с базой данных
     {
-        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<User> Users => Set<User>();//представляет набор объектов, которые хранятся в базе данных
+        public ApplicationContext() => Database.EnsureCreated();
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)//устанавливает параметры подключения
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=helloappdb;Trusted_Connection=True;");
+            //DbContextOptionsBuilder с помощью метода UseSqlite позволяет настроить строку подключения для соединения с базой данных SQLite.
+            optionsBuilder.UseSqlite("Data Source=helloapp.db");
         }
     }
-
 }
 

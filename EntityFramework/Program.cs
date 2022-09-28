@@ -4,24 +4,21 @@ using Microsoft.Extensions.Configuration;
 
 using (ApplicationContext db = new ApplicationContext())
 {
-    db.Database.EnsureDeleted();
-    db.Database.EnsureCreated();
     // создаем два объекта User
-    User user1 = new User { Name = "Tom", Age = 33 };
-    User user2 = new User { Name = "Alice", Age = 26 };
- 
+    User artem = new User { Name = "Artem", Surname = "Stryzhakov", LivePlace = "Keila", email = "striz@gmail.com", Age = 18 };
+    User jaan = new User { Name = "Jaan", Surname = "Krohhin", LivePlace = "Tallinn", email = "krohha@gmail.com", Age = 20 };
+
     // добавляем их в бд
-    db.Users.AddRange(user1, user2);
+    db.Users.Add(artem);
+    db.Users.Add(jaan);
     db.SaveChanges();
-}
-// получение данных
-using (ApplicationContext db = new ApplicationContext())
-{
+    Console.WriteLine("Objektide salvestamine õnnestus");
+
     // получаем объекты из бд и выводим на консоль
     var users = db.Users.ToList();
-    Console.WriteLine("Users list:");
+    Console.WriteLine("Objektide loend:");
     foreach (User u in users)
     {
-        Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
+        Console.WriteLine($"{u.Id}.{u.Name},{u.Surname},{u.LivePlace},{u.email},{u.Age}");
     }
 }
